@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 世界杯 · 赛事查询参考</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fde8cd 0%, #fbd5b5 50%, #f8cba6 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      max-width: 880px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* 白色卡片集合 */
+    .card {
+      background: #fffefc;
+      border-radius: 36px;
+      box-shadow: 0 16px 40px -12px rgba(160, 90, 30, 0.20), 0 6px 12px -6px rgba(0, 0, 0, 0.04);
+      padding: 2.5rem 2.8rem;
+      margin-bottom: 2rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 1.2rem 0.8rem; }
+      .card { padding: 1.8rem 1.5rem; border-radius: 28px; }
+    }
+
+    /* hero 区 */
+    .hero {
+      text-align: left;
+      padding-top: 3.2rem;
+      padding-bottom: 2.4rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      color: #3b2c1a;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #7f4f24, #ab6b3c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero .sub {
+      font-size: 1.2rem;
+      color: #5a4530;
+      margin-bottom: 1.1rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .hero .sub strong {
+      color: #8b5e34;
+      font-weight: 600;
+    }
+
+    .hero p {
+      color: #3f3222;
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 90%;
+    }
+
+    /* 圆角按钮感链接 (用在卡片内) */
+    .link-button {
+      display: inline-block;
+      background: #fff0e0;
+      border: 1px solid #eaceb7;
+      border-radius: 60px;
+      padding: 0.3rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #6e4a2a;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .link-button:hover {
+      background: #ffe5cf;
+      border-color: #c9a883;
+      transform: scale(1.02);
+    }
+
+    /* 内嵌自然链接样式 */
+    a.inline-link {
+      color: #8b5e34;
+      text-decoration: none;
+      border-bottom: 1.5px dashed #cfb295;
+      font-weight: 500;
+      transition: border-bottom 0.1s, color 0.1s;
+    }
+
+    a.inline-link:hover {
+      color: #633c1e;
+      border-bottom-style: solid;
+    }
+
+    /* 优势区 / 场景说明 用两栏 */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+
+    @media (max-width: 640px) {
+      .two-col { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    .col-item h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #3d2e1d;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .col-item p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #4e3c2b;
+    }
+
+    .col-item p + p {
+      margin-top: 0.4rem;
+    }
+
+    /* 说明区 (比对+延伸) */
+    .explain-block {
+      margin-top: 0.4rem;
+    }
+
+    .explain-block p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+      color: #3d3020;
+    }
+
+    .explain-block ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .explain-block li {
+      padding: 0.4rem 0 0.4rem 1.6rem;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23ab6b3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>') left center no-repeat;
+      background-size: 14px;
+      margin-bottom: 0.2rem;
+      color: #4a3a28;
+    }
+
+    .explain-block li strong {
+      color: #7a4f2c;
+    }
+
+    /* FAQ 摘要 */
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 0.6rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #eedccb;
+      padding-bottom: 0.7rem;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      color: #3b2b1a;
+      font-size: 0.98rem;
+    }
+
+    .faq-a {
+      font-size: 0.9rem;
+      color: #5a4a38;
+      margin-top: 0.15rem;
+      line-height: 1.5;
+    }
+
+    /* 底部 */
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem 1.6rem;
+      padding: 1rem 0 0.2rem;
+      font-size: 0.9rem;
+      color: #5d4a35;
+    }
+
+    .footer-links a {
+      color: #7f532e;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.1s;
+    }
+
+    .footer-links a:hover {
+      border-bottom-color: #b58b64;
+    }
+
+    .footnote {
+      text-align: center;
+      color: #755d46;
+      font-size: 0.8rem;
+      padding-top: 1.2rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- hero 区 -->
+  <div class="card hero">
+    <h1>2026 世界杯 · 赛事查询参考</h1>
+    <div class="sub">从赛事日历、球队档案到历史对照 &nbsp;·&nbsp; <strong>一站检索</strong></div>
+    <p>
+      面向关注 2026 年世界杯的球迷与信息工作者：本页聚合了常用的比赛阶段、晋级规则与延伸阅读的索引，帮助你在日常查询中快速定位上下文。所有数据均以官方公布的调整信息为准，可结合 
+      <a href="https://index-home-fifa2026.com" class="inline-link">世界杯</a> 
+      专题索引获取更完整的赛程与统计数据。
+    </p>
+  </div>
+
+  <!-- 优势区 + 场景 (两栏) -->
+  <div class="card">
+    <div class="two-col">
+      <div class="col-item">
+        <h3>⚽ 多维度对照</h3>
+        <p>小组赛出线规则、淘汰赛对位、各大洲名额分配等细节，均以表格与注释形式呈现。支持横向对比往届变化。</p>
+        <p style="margin-top: 0.3rem;"><a href="https://index-home-fifa2026.com" class="link-button">世界杯</a></p>
+      </div>
+      <div class="col-item">
+        <h3>📋 延伸阅读索引</h3>
+        <p>历史比赛回顾、主办城市简介、预选赛阶段总结。所有外部引用均链接至权威媒体或官方发布，方便交叉验证。</p>
+        <p style="margin-top: 0.3rem;"><a href="https://index-home-fifa2026.com" class="link-button">世界杯</a></p>
+      </div>
+    </div>
+    <div style="margin-top: 1.8rem; border-top: 1px solid #eddccb; padding-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+      <span style="font-weight: 500; color: #4b3926;">常用查询场景：</span>
+      <span style="color: #6b5039; background: #f8efe6; border-radius: 40px; padding: 0.25rem 1rem;">赛程校对</span>
+      <span style="color: #6b5039; background: #f8efe6; border-radius: 40px; padding: 0.25rem 1rem;">积分榜对照</span>
+      <span style="color: #6b5039; background: #f8efe6; border-radius: 40px; padding: 0.25rem 1rem;">历史交锋</span>
+    </div>
+  </div>
+
+  <!-- 说明区：日常查询与延伸对照 -->
+  <div class="card explain-block">
+    <h2 style="font-size: 1.5rem; font-weight: 600; color: #3c2c1a; margin-bottom: 1rem; letter-spacing: -0.01em;">日常查询 · 对照与延伸</h2>
+    <p>
+      本页面以 <strong>信息检索</strong> 为出发点，整理出多组常用对照表。例如：48 支参赛队的分档逻辑、每组 4 队的交锋次序、以及淘汰赛阶段的主客场分配原则。你可以通过 
+      <a href="https://index-home-fifa2026.com" class="inline-link">世界杯</a> 
+      专题页获取各轮次的精确时间表（已换算为北京时间）。以下为部分典型数据维度：
+    </p>
+    <ul>
+      <li><strong>分档与抽签</strong> — 基于 2025 年 4 月 FIFA 排名划分种子队，同大洲回避原则（除欧足联外）</li>
+      <li><strong>比赛阶段时间轴</strong> — 小组赛 2026.6.11–6.27，淘汰赛 6.29–7.19，决赛于纽约/新泽西举行</li>
+      <li><strong>历史对照</strong> — 上届 2022 年 32 队赛制 vs 2026 年 48 队赛制，小组出线名额与赛程密度变化</li>
+      <li><strong>延伸阅读</strong> — 各主办城市体育场容量、天气平均数据、当地交通指南（非官方，仅作参考）</li>
+    </ul>
+    <p style="margin-top: 1rem;">
+      如需查阅特定球队的预选赛晋级路线、历史世界杯交锋记录，或下载赛历 PDF，可直接在 
+      <a href="https://index-home-fifa2026.com" class="inline-link">世界杯</a> 
+      资料库中使用筛选功能。页面定期同步官方公告，并标注版本日期。
+    </p>
+  </div>
+
+  <!-- FAQ 摘要区 -->
+  <div class="card">
+    <h2 style="font-size: 1.4rem; font-weight: 600; color: #3b2b1a; margin-bottom: 0.8rem;">常见检索问题 · 摘要</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">2026 世界杯小组赛每组出线几支球队？</div>
+        <div class="faq-a">48 队分为 12 个小组，每组前两名以及 8 个成绩最好的小组第三名晋级 32 强淘汰赛。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">赛程在哪里可以找到完整版？</div>
+        <div class="faq-a">
+          FIFA 官网及授权媒体均会发布。你也可以通过 
+          <a href="https://index-home-fifa2026.com" class="inline-link">世界杯</a> 
+          索引页查看汇总时间表，该页面以表格形式列出每轮日期、场地及电视转播参考。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">历史数据与本届对照，有哪些关键变化？</div>
+        <div class="faq-a">参赛队从 32 支增至 48 支，比赛总场次从 64 场增加到 80 场；小组第三名有机会晋级；主办国为美国、加拿大、墨西哥三国联合举办。</div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; font-size: 0.9rem; color: #5e4a35; border-left: 3px solid #dbb99a; padding-left: 1rem;">
+      更多问答可访问 
+      <a href="https://index-home-fifa2026.com" class="inline-link">世界杯</a> 
+      常见问题板块，或使用站内搜索按关键词过滤。
+    </div>
+  </div>
+
+  <!-- 底部链接 -->
+  <div class="footer-links">
+    <span>查询工具</span>
+    <a href="https://index-home-fifa2026.com">世界杯</a>
+    <a href="https://index-home-fifa2026.com">世界杯</a>
+    <a href="https://index-home-fifa2026.com">世界杯</a>
+    <span style="color: #a18168;">·</span>
+    <a href="https://index-home-fifa2026.com">世界杯</a>
+  </div>
+  <div class="footnote">
+    内容仅供参考，最终信息以 FIFA 官方发布为准 · 页面更新于 2026 赛季
+  </div>
+
+</div>
+</body>
+</html>
